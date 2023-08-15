@@ -1,0 +1,157 @@
+\documentclass[]{article}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\usepackage[letterpaper,top=1.8cm,bottom=1.8cm,left=1.8cm,right=1.8cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+
+\begin{document}
+
+\fontfamily{cmss} \selectfont
+
+\title{\Large \centering \textbf{\fontfamily{cmss} \selectfont YRF 2022 - Project Report}}
+
+\author{\bf \fontfamily{cmss} \selectfont Predicting the Future from the Past: Efficient Reuse-based Cache Block Replacement Policy
+            \vspace{0.08in}\\ YRF Fellow: Aditya C (CS20B003)
+            \vspace{0.07in}\\ Project Guide: Prof. Madhu Mutyam
+}
+
+\maketitle
+
+\tableofcontents
+
+\begin{abstract}
+
+Caches help reduce the average memory latency, improving the system's performance. Cache replacement policies were devised to manage data stored in a cache. How do we identify which cache block to evict when loading new data from the main memory?
+
+The optimal strategy would be to store “useful” blocks - ones that will be accessed in the immediate future, and evict blocks that won’t be needed for the longest time in the future - Belady’s MIN algorithm - efficient but impractical.
+
+Cache replacement policies, aiming to reach the efficiency of Belady’s MIN policy, have developed from being recency-based to RRIP (Re-Reference Interval Prediction)-based. There have also been prediction-based policies that learn from historical behaviour, allowing them to evict cache blocks that are “unlikely” to receive cache hits (ex: Hawkeye \& Mockingjay policies). These policies are closer to optimal efficiency, but none have attained the highest efficiency yet.
+    
+With the advent of ML \& RL, one can incorporate these techniques into existing cache policies to design a cache that “learns” from the data it receives and accurately predicts the Estimated Time of Reuse (reuse distance) of a data block.  This project aims to explore different techniques and incorporate them into existing ideas to develop a policy that can accurately predict the reuse distance of cache blocks and choose the block with maximum reuse distance as the victim.
+    
+
+\end{abstract}
+
+\section{\fontfamily{cmss} \selectfont Project Timeline}
+
+\begin{itemize}
+    \item Sept 23: Meeting #1
+    \begin{itemize}
+        \item Discussed going through Mockingjay Cache Replacement Policy and understand the algorithm
+        \item Having a look at bloom filter data structure
+        \item Keeping in touch with papers in the field
+    \end{itemize}
+    \item Sept 23 - 30: Going through Mockingjay Cache Replacement Policy paper
+    \item Oct 28: Meeting #2
+    \item Oct 28 - Nov 3: Going through ChampSim cache replacement policy simulator 
+    \item Nov 4: Meeting #3
+        \begin{itemize}
+            \item Reading on Hawkeye, Mockingjay's predecessor policy
+            \item Going through codebases of these replacement policies
+        \end{itemize}
+    \item Nov 4 - Nov 10: Going through Hawkeye Paper
+    \item Nov 22 - Nov 28: Going through Mockingjay policy codebase
+    \item Nov 28: Meeting #4
+    \item Jan 3 - Jan 13: Revisiting the papers again, and going through policy codebases
+    \item Some of the avenues I could explore for improving Mockingjay replacement policy:
+    \begin{itemize}
+        \item Incorporating explicit dead block prediction policies
+        \item Improving branch prediction
+        \item Looking at use of probabilistic data structures for storing cache state
+    \end{itemize}
+    \item Jan 18 - Feb 5: 
+        \begin{itemize}
+            \item Understanding the sampling dead block based replacement policy
+            \item Exploring ideas of improvement for the reuse distance updation in Mockingjay
+        \end{itemize}
+    \item Feb 18: Meeting #5 - Discussing updates on work so far
+    \item Feb 16 - Feb 20: Mid term report
+    \item The direction I chose to proceed in was to understand if explicit dead block prediction can help improve the Mockingjay algorithm.
+    \item March: Implementation of dead block prediction assisted Mockingjay algorithm
+    \item April 25: Meeting #6
+    \begin{itemize}
+        \item Discussed progress in implementation of dead block prediction
+        \item 
+    \end{itemize}
+
+\section{\fontfamily{cmss} \selectfont Dead block prediction implementation details}
+
+\subsection{Data Structures}
+\begin{enumerate}
+    \item \texttt{sampler\_sets} - A structure for each block of a sampled set, containing:
+        \begin{itemize}
+            \item valid bit
+            \item LRU position of block in that set - log(LLC\_WAY) bits
+            \item trace address associated - 32 bits
+            \item reuse bit
+            \item partial\_tag - TRACE\_BITS bits
+        \end{itemize}
+        
+    \item \texttt{repl} - A structure for each block in the cache, containing:
+        \begin{itemize}
+            \item LRU position of block in that set - log(LLC\_WAY) bits
+            \item reuse bit
+        \end{itemize}
+
+    \item \texttt{weight\_table} - a $3 \times 4096$ table
+\end{enumerate}
+
+\subsection{Main Methods involved}
+    \begin{enumerate}
+        \item \texttt{db\_initialize\_replacement}
+                \begin{itemize}
+                    \item initializes the \texttt{weight\_table} to 0
+                    \item initializes the \texttt{repl} structure for each block in the cache
+                    \item initializes the \texttt{sampler\_sets} structure for each block in the sampled sets
+                \end{itemize}
+        
+        \item \texttt{update\_dbp\_replacement\_state}
+                \begin{itemize}
+                    \item For sampled sets, checks if the partial\_tag of any block is the same as the partial\_tag of the sampled block
+                    \item If yes, then the block is a hit; 
+                        \begin{itemize}
+                            \item the earlier trace of the block is trained negatively
+                            \item current trace of the block is updated to current pc
+                            \item reuse bit is set to db\_predict(pc\_trace)
+                        \end{itemize}
+                    \item If no, then the block is a miss in sampled cache.
+                    \item We look for an invalid / dead / inf etr block in the sampled set
+                        \begin{itemize}
+                            \item the trace of that block is trained positively and the block removed from the sampled\_set
+                            \item the recently accessed block is added in its place
+                            \item the trace of the block is updated to current pc
+                            \item reuse bit is set to db\_predict(pc\_trace)
+                        \end{itemize}
+                    \item Finally, we set the reuse\_bit for the accessed block as db\_predict(pc\_trace)
+                \end{itemize}
+
+        \item \texttt{get\_dbp\_victim (set, pc, type)}
+                \begin{itemize}
+                    \item If the current pc trace comes out to be dead, we don't choose a victim for eviction
+                    \item Else, we choose a block in the cache that has its reuse bit set to 0
+                \end{itemize}
+        
+        \item \texttt{db\_train (trace, increment)}
+                \begin{itemize}
+                    \item If increment bit is set to 1, then that trace is trained "positively" towards being dead i.e. the weight of that trace is incremented by 1
+                    \item If increment bit is set to 0, then that trace is trained "negatively" towards being dead i.e. the weight of that trace is decremented by 1
+                \end{itemize}
+
+        \item \texttt{db\_predict (trace)}
+                \begin{itemize}
+                    \item Predicts whether access by a pc makes the block dead or not by checking the weight tables for that pc's traces
+                    \item A parameter threshold is used to determine whether the block is dead or not
+    \end{enumerate}
+    The updated policy, during every victim finding process, looks for a "dead block" to evict. If it finds one, it evicts that block. If not, it evicts the block with the maximum predicted ETA.
+
+
+\subsection{Analysis}
+    \item I attempted to study the effect of adding explicit dead block prediction to Mockingjay algorithm, and how changing a parameter of Mockingjay (the temporal difference constant) affects the performance of the algorithm.
+    \item 
+    
+\end{document}
