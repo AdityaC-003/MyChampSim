@@ -1,0 +1,88 @@
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 1000000
+Simulation Instructions: 10000000
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 1600 MT/s
+
+CPU 0 runs ./tracefiles/GemsFDTD_712B.trace.xz
+CPU 0 Bimodal branch predictor
+
+Warmup complete CPU 0 instructions: 1000003 cycles: 633623 (Simulation time: 0 hr 0 min 1 sec) 
+
+Heartbeat CPU 0 instructions: 10000000 cycles: 26597386 heartbeat IPC: 0.375977 cumulative IPC: 0.346637 (Simulation time: 0 hr 0 min 21 sec) 
+Finished CPU 0 instructions: 10000002 cycles: 28694499 cumulative IPC: 0.348499 (Simulation time: 0 hr 0 min 23 sec) 
+
+CPU 0 Branch Prediction Accuracy: 98.1929% MPKI: 0.3554
+
+ChampSim completed all CPUs
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 0.348499 instructions: 10000002 cycles: 28694499
+L1D TOTAL     ACCESS:    3416387  HIT:    3031808  MISS:     384579
+L1D LOAD      ACCESS:    2461194  HIT:    2076616  MISS:     384578
+L1D RFO       ACCESS:     955193  HIT:     955192  MISS:          1
+L1D PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1D PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+L1I TOTAL     ACCESS:    2515025  HIT:    2515025  MISS:          0
+L1I LOAD      ACCESS:    2515025  HIT:    2515025  MISS:          0
+L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+L2C TOTAL     ACCESS:     528920  HIT:     145719  MISS:     383201
+L2C LOAD      ACCESS:     384578  HIT:       1402  MISS:     383176
+L2C RFO       ACCESS:          1  HIT:          1  MISS:          0
+L2C PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L2C WRITEBACK ACCESS:     144341  HIT:     144316  MISS:         25
+L2C PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+LLC TOTAL     ACCESS:     526857  HIT:     115475  MISS:     411382
+LLC LOAD      ACCESS:     383176  HIT:      75406  MISS:     307770
+LLC RFO       ACCESS:          0  HIT:          0  MISS:          0
+LLC PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+LLC WRITEBACK ACCESS:     143681  HIT:      40069  MISS:     103612
+LLC PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+DTLB TOTAL     ACCESS:    3316333  HIT:    3309751  MISS:       6582
+DTLB LOAD      ACCESS:    2739507  HIT:    2732925  MISS:       6582
+DTLB RFO       ACCESS:     576826  HIT:     576826  MISS:          0
+DTLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+DTLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+DTLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+ITLB TOTAL     ACCESS:    1981656  HIT:    1981656  MISS:          0
+ITLB LOAD      ACCESS:    1981656  HIT:    1981656  MISS:          0
+ITLB RFO       ACCESS:          0  HIT:          0  MISS:          0
+ITLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+ITLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+ITLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+STLB TOTAL     ACCESS:       6582  HIT:       1622  MISS:       4960
+STLB LOAD      ACCESS:       6582  HIT:       1622  MISS:       4960
+STLB RFO       ACCESS:          0  HIT:          0  MISS:          0
+STLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+STLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+STLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+Major fault: 0 Minor fault: 5627
+
+Invalid block evictions: 32768
+DBP Decisions: 22542
+Mockingjay Decisions: 248455
+Non Writeback Decisions: 146033
+
+DB Predictions at the end: 
+0 651981
+3 34481
+6 21988
+9 136318
+
+
+DRAM Statistics
+ CHANNEL 0
+ RQ ROW_BUFFER_HIT:     231199  ROW_BUFFER_MISS:      76571
+ DBUS_CONGESTED:     186638
+ WQ ROW_BUFFER_HIT:      51443  ROW_BUFFER_MISS:      98423  FULL:          0
+
+ AVG_CONGESTED_CYCLE: 13

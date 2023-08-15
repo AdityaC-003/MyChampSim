@@ -1,0 +1,85 @@
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 1000000
+Simulation Instructions: 10000000
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 1600 MT/s
+
+CPU 0 runs ./tracefiles/sphinx3_883B.trace.xz
+CPU 0 Bimodal branch predictor
+Initialize Hawkeye state
+
+Warmup complete CPU 0 instructions: 1000001 cycles: 452799 (Simulation time: 0 hr 0 min 0 sec) 
+
+Heartbeat CPU 0 instructions: 10000000 cycles: 17169468 heartbeat IPC: 0.582429 cumulative IPC: 0.538385 (Simulation time: 0 hr 0 min 12 sec) 
+Finished CPU 0 instructions: 10000001 cycles: 18878496 cumulative IPC: 0.529703 (Simulation time: 0 hr 0 min 14 sec) 
+
+CPU 0 Branch Prediction Accuracy: 94.0125% MPKI: 5.489
+
+ChampSim completed all CPUs
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 0.529703 instructions: 10000001 cycles: 18878496
+L1D TOTAL     ACCESS:    1740742  HIT:    1539731  MISS:     201011
+L1D LOAD      ACCESS:    1511056  HIT:    1319621  MISS:     191435
+L1D RFO       ACCESS:     229686  HIT:     220110  MISS:       9576
+L1D PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1D PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+L1I TOTAL     ACCESS:    2298282  HIT:    2298073  MISS:        209
+L1I LOAD      ACCESS:    2298282  HIT:    2298073  MISS:        209
+L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+L2C TOTAL     ACCESS:     216878  HIT:      66123  MISS:     150755
+L2C LOAD      ACCESS:     191644  HIT:      49151  MISS:     142493
+L2C RFO       ACCESS:       9574  HIT:       1337  MISS:       8237
+L2C PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L2C WRITEBACK ACCESS:      15660  HIT:      15635  MISS:         25
+L2C PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+LLC TOTAL     ACCESS:     163737  HIT:      39323  MISS:     124414
+LLC LOAD      ACCESS:     142493  HIT:      26085  MISS:     116408
+LLC RFO       ACCESS:       8237  HIT:       2573  MISS:       5664
+LLC PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+LLC WRITEBACK ACCESS:      13007  HIT:      10665  MISS:       2342
+LLC PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+DTLB TOTAL     ACCESS:    2113355  HIT:    2092538  MISS:      20817
+DTLB LOAD      ACCESS:    1910827  HIT:    1891028  MISS:      19799
+DTLB RFO       ACCESS:     202528  HIT:     201510  MISS:       1018
+DTLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+DTLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+DTLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+ITLB TOTAL     ACCESS:    1753906  HIT:    1753883  MISS:         23
+ITLB LOAD      ACCESS:    1753906  HIT:    1753883  MISS:         23
+ITLB RFO       ACCESS:          0  HIT:          0  MISS:          0
+ITLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+ITLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+ITLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+STLB TOTAL     ACCESS:      20840  HIT:      14144  MISS:       6696
+STLB LOAD      ACCESS:      19822  HIT:      13233  MISS:       6589
+STLB RFO       ACCESS:       1018  HIT:        911  MISS:        107
+STLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+STLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+STLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+Major fault: 0 Minor fault: 3428
+OPTgen demand accesses: 2563
+OPTgen prefetch accesses: 0
+OPTgen hits: 848
+OPTgen hit rate: 33.0862
+Number of evictions: 140847
+Number of cache-friendly evictions: 49011
+
+
+
+DRAM Statistics
+ CHANNEL 0
+ RQ ROW_BUFFER_HIT:      94347  ROW_BUFFER_MISS:      27694
+ DBUS_CONGESTED:      26349
+ WQ ROW_BUFFER_HIT:       1433  ROW_BUFFER_MISS:       6066  FULL:          0
+
+ AVG_CONGESTED_CYCLE: 11

@@ -1,0 +1,24 @@
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 200000000
+Simulation Instructions: 500000000
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 1600 MT/s
+
+CPU 0 runs ./tracefiles/cactusADM_734B.trace.xz
+CPU 0 Bimodal branch predictor
+Heartbeat CPU 0 instructions: 10000003 cycles: 5954697 heartbeat IPC: 1.67935 cumulative IPC: 1.67935 (Simulation time: 0 hr 0 min 18 sec) 
+Heartbeat CPU 0 instructions: 20000000 cycles: 12014199 heartbeat IPC: 1.6503 cumulative IPC: 1.6647 (Simulation time: 0 hr 0 min 36 sec) 
+Heartbeat CPU 0 instructions: 30000001 cycles: 18101676 heartbeat IPC: 1.64272 cumulative IPC: 1.65731 (Simulation time: 0 hr 0 min 53 sec) 
+Heartbeat CPU 0 instructions: 40000000 cycles: 24188750 heartbeat IPC: 1.64283 cumulative IPC: 1.65366 (Simulation time: 0 hr 1 min 10 sec) 
+Heartbeat CPU 0 instructions: 50000000 cycles: 30275584 heartbeat IPC: 1.64289 cumulative IPC: 1.6515 (Simulation time: 0 hr 1 min 27 sec) 
+Heartbeat CPU 0 instructions: 60000000 cycles: 36202590 heartbeat IPC: 1.68719 cumulative IPC: 1.65734 (Simulation time: 0 hr 1 min 43 sec) 
+Heartbeat CPU 0 instructions: 70000002 cycles: 42289830 heartbeat IPC: 1.64278 cumulative IPC: 1.65524 (Simulation time: 0 hr 2 min 1 sec) 
+Heartbeat CPU 0 instructions: 80000000 cycles: 48376509 heartbeat IPC: 1.64293 cumulative IPC: 1.6537 (Simulation time: 0 hr 2 min 18 sec) 
+Heartbeat CPU 0 instructions: 90000002 cycles: 54464898 heartbeat IPC: 1.64247 cumulative IPC: 1.65244 (Simulation time: 0 hr 2 min 36 sec) 
+Heartbeat CPU 0 instructions: 100000000 cycles: 60393709 heartbeat IPC: 1.68668 cumulative IPC: 1.6558 (Simulation time: 0 hr 2 min 53 sec) 
+Heartbeat CPU 0 instructions: 110000002 cycles: 66480163 heartbeat IPC: 1.64299 cumulative IPC: 1.65463 (Simulation time: 0 hr 3 min 10 sec) 
+Heartbeat CPU 0 instructions: 120000000 cycles: 72568410 heartbeat IPC: 1.64251 cumulative IPC: 1.65361 (Simulation time: 0 hr 3 min 27 sec) 
