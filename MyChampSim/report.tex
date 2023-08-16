@@ -1,0 +1,14 @@
+\begin{document}
+
+\section{Dead block prediction}
+
+The motivation behind exploring dead block prediction mechanisms is that cache blocks are dead on average 86.2\% of the time, and identifying these blocks accurately helps in getting better eviction victims and reduces the number of cache misses.
+The dead block predictor constructed here is a PC-trace based predictor, similar to Mockingjay.
+
+\begin{itemize}
+    \item Sampler sets - We sample a small number of sets from the cache, and use them to train the PC-based trace predictor.
+    \item Counter tables - We use three 4096-entry tables of 2-bit saturating counters to predict whether the block accessed by a PC is dead or not. Each of the tables is indexed with a different hash function of the PC, reducing the impact of conflicts in the table.
+    The three predictions are added and compared against a threshold to determine whether the block is dead or not.
+\end{itemize}
+
+The idea behind combining the prediction of DBP setup and Mockingjay is to use the DBP setup to predict dead blocks, and fall back to Mockingjay when the DBP setup fails to predict a dead block. 

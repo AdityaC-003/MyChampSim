@@ -1,11 +1,13 @@
 '''
-    read every file in ./results_10M/
+    read every file in results_filepath
     in each file, look for the line starting with LLC TOTAL, and extract that line
 '''
 
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+
+results_filepath = "./results_500M/" 
 
 def get_llc_stats(filename):
     with open(filename, "r") as f:
@@ -59,13 +61,40 @@ def get_ipc(line):
     return float(data[ipc_pos])
 
 
+def add_key(dict, tracefile, replacement_policy, value):
+    if tracefile not in dict.keys():
+        dict[tracefile] = {}
+    if replacement_policy == 'adc':
+        replacement_policy = 'new_policy'
+    dict[tracefile][replacement_policy] = value
+    return dict
+
 def main():
-    for filename in sorted(os.listdir("./results_10M/")):
+
+    ipc_dict = {}
+    mpki_dict = {}
+    
+    for filename in sorted(os.listdir(results_filepath)):
         tracefile = get_tracefile(filename)
         replacement_policy = get_replacement_policy(filename)
-        stats_dict = get_llc_stats(f"./results_10M/{filename}")
-        print(f"{tracefile}\t{replacement_policy}\t{stats_dict['miss_rate']}")
-        print(f"{tracefile}\t{replacement_policy}\t{stats_dict['ipc']}")
+        stats_dict = get_llc_stats(f"{results_filepath}{filename}")
+        ipc_dict = add_key(ipc_dict, tracefile, replacement_policy, stats_dict['ipc'])
+        mpki_dict = add_key(mpki_dict, tracefile, replacement_policy, stats_dict['miss'] / stats_dict['access'] * 1000)
+
+    for tracefile in ipc_dict.keys():
+        print(f"{tracefile}")
+        for replacement_policy in sorted(ipc_dict[tracefile].keys()):
+            ipc_wrt_lru = ipc_dict[tracefile][replacement_policy] / ipc_dict[tracefile]['lru']
+            print(f"{replacement_policy}\t{ipc_dict[tracefile][replacement_policy]}\t{ipc_wrt_lru}")
+        print()
+        
+    for tracefile in mpki_dict.keys():
+        print(f"{tracefile}")
+        for replacement_policy in sorted(mpki_dict[tracefile].keys()):
+            mpki_wrt_lru = mpki_dict[tracefile][replacement_policy] / mpki_dict[tracefile]['lru']
+            print(f"{replacement_policy}\t{mpki_dict[tracefile][replacement_policy]}\t{mpki_wrt_lru}")
+        print()
+
  
 
 def stats_summary():
@@ -74,11 +103,11 @@ def stats_summary():
     replacement_policy_trace_count = {}
     replacement_policy_weighted_trace_count = {}
 
-    for filename in sorted(os.listdir("./results_10M/")):
+    for filename in sorted(os.listdir(results_filepath)):
 
         tracefile = get_tracefile(filename)
         replacement_policy = get_replacement_policy(filename)
-        stats_dict = get_llc_stats(f"./results_10M/{filename}")
+        stats_dict = get_llc_stats(f"{results_filepath}{filename}")
 
         if replacement_policy not in avg_miss_rate:
             avg_miss_rate[replacement_policy] = 0
@@ -95,7 +124,7 @@ def stats_summary():
     
     for replacement_policy in avg_miss_rate:
         avg_miss_rate[replacement_policy] /= replacement_policy_trace_count[replacement_policy]
-        print(f"{replacement_policy}\t{avg_miss_rate[replacement_policy]}")
+        # print(f"{replacement_policy}\t{avg_miss_rate[replacement_policy]}")
         print(f"{replacement_policy}\t{weighted_avg_miss_rate[replacement_policy] / replacement_policy_weighted_trace_count[replacement_policy]}")
 
 if __name__ == "__main__":

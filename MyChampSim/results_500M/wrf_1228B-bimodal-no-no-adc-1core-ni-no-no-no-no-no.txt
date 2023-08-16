@@ -75,3 +75,89 @@ Heartbeat CPU 0 instructions: 590000000 cycles: 808012831 heartbeat IPC: 0.53154
 Heartbeat CPU 0 instructions: 600000000 cycles: 826848208 heartbeat IPC: 0.530916 cumulative IPC: 0.553105 (Simulation time: 0 hr 17 min 22 sec) 
 Heartbeat CPU 0 instructions: 610000002 cycles: 845682844 heartbeat IPC: 0.530937 cumulative IPC: 0.552543 (Simulation time: 0 hr 17 min 41 sec) 
 Heartbeat CPU 0 instructions: 620000000 cycles: 864511918 heartbeat IPC: 0.531093 cumulative IPC: 0.552012 (Simulation time: 0 hr 18 min 1 sec) 
+Heartbeat CPU 0 instructions: 630000002 cycles: 883323374 heartbeat IPC: 0.531591 cumulative IPC: 0.551519 (Simulation time: 0 hr 18 min 20 sec) 
+Heartbeat CPU 0 instructions: 640000000 cycles: 902158372 heartbeat IPC: 0.530926 cumulative IPC: 0.551033 (Simulation time: 0 hr 18 min 40 sec) 
+Heartbeat CPU 0 instructions: 650000002 cycles: 920994883 heartbeat IPC: 0.530884 cumulative IPC: 0.550569 (Simulation time: 0 hr 19 min 0 sec) 
+Heartbeat CPU 0 instructions: 660000000 cycles: 939801724 heartbeat IPC: 0.531721 cumulative IPC: 0.550145 (Simulation time: 0 hr 19 min 20 sec) 
+Heartbeat CPU 0 instructions: 670000000 cycles: 958585161 heartbeat IPC: 0.532384 cumulative IPC: 0.549755 (Simulation time: 0 hr 19 min 40 sec) 
+Heartbeat CPU 0 instructions: 680000000 cycles: 977358596 heartbeat IPC: 0.532668 cumulative IPC: 0.549388 (Simulation time: 0 hr 20 min 0 sec) 
+Heartbeat CPU 0 instructions: 690000000 cycles: 996100336 heartbeat IPC: 0.533568 cumulative IPC: 0.549056 (Simulation time: 0 hr 20 min 19 sec) 
+Heartbeat CPU 0 instructions: 700000000 cycles: 1014800304 heartbeat IPC: 0.53476 cumulative IPC: 0.548762 (Simulation time: 0 hr 20 min 40 sec) 
+Finished CPU 0 instructions: 500000002 cycles: 911141507 cumulative IPC: 0.548762 (Simulation time: 0 hr 20 min 40 sec) 
+
+CPU 0 Branch Prediction Accuracy: 97.6254% MPKI: 3.28074
+
+ChampSim completed all CPUs
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 0.548762 instructions: 500000002 cycles: 911141507
+L1D TOTAL     ACCESS:  156498471  HIT:  150214164  MISS:    6284307
+L1D LOAD      ACCESS:   95493780  HIT:   91599007  MISS:    3894773
+L1D RFO       ACCESS:   61004691  HIT:   58615157  MISS:    2389534
+L1D PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1D PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+L1I TOTAL     ACCESS:  184843995  HIT:  184753903  MISS:      90092
+L1I LOAD      ACCESS:  184843995  HIT:  184753903  MISS:      90092
+L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+L2C TOTAL     ACCESS:    9606152  HIT:    8734420  MISS:     871732
+L2C LOAD      ACCESS:    3982072  HIT:    3317913  MISS:     664159
+L2C RFO       ACCESS:    2356959  HIT:    2149514  MISS:     207445
+L2C PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L2C WRITEBACK ACCESS:    3267121  HIT:    3266993  MISS:        128
+L2C PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+LLC TOTAL     ACCESS:    1305497  HIT:     227527  MISS:    1077970
+LLC LOAD      ACCESS:     664159  HIT:       9002  MISS:     655157
+LLC RFO       ACCESS:     207445  HIT:        159  MISS:     207286
+LLC PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+LLC WRITEBACK ACCESS:     433893  HIT:     218366  MISS:     215527
+LLC PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+DTLB TOTAL     ACCESS:  134563345  HIT:  133207146  MISS:    1356199
+DTLB LOAD      ACCESS:   85127534  HIT:   84162644  MISS:     964890
+DTLB RFO       ACCESS:   49435811  HIT:   49044502  MISS:     391309
+DTLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+DTLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+DTLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+ITLB TOTAL     ACCESS:  163004515  HIT:  163004487  MISS:         28
+ITLB LOAD      ACCESS:  163004515  HIT:  163004487  MISS:         28
+ITLB RFO       ACCESS:          0  HIT:          0  MISS:          0
+ITLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+ITLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+ITLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+STLB TOTAL     ACCESS:    1356227  HIT:    1342833  MISS:      13394
+STLB LOAD      ACCESS:     964918  HIT:     954832  MISS:      10086
+STLB RFO       ACCESS:     391309  HIT:     388001  MISS:       3308
+STLB PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+STLB WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+STLB PREFETCH  REQUESTED:          0  ISSUED:          0  FILLED:          0  USEFUL:          0  USELESS:          0
+Major fault: 0 Minor fault: 15672
+
+Invalid block evictions: 32768
+DBP Decisions: 43115
+Mockingjay Decisions: 1529040
+Non Writeback Decisions: 829121
+
+DB Predictions at the end: 
+0 3842586
+1 7253
+2 6057
+3 140394
+4 393
+5 996
+6 83582
+7 1113
+8 1183
+9 641615
+
+
+DRAM Statistics
+ CHANNEL 0
+ RQ ROW_BUFFER_HIT:     370981  ROW_BUFFER_MISS:     491450
+ DBUS_CONGESTED:     606118
+ WQ ROW_BUFFER_HIT:     104674  ROW_BUFFER_MISS:     320648  FULL:          0
+
+ AVG_CONGESTED_CYCLE: 13
