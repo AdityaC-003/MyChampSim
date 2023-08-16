@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 results_filepath = "./results_500M/" 
+baseline_policy = "mockingjay"
 
 def get_llc_stats(filename):
     with open(filename, "r") as f:
@@ -81,18 +82,22 @@ def main():
         ipc_dict = add_key(ipc_dict, tracefile, replacement_policy, stats_dict['ipc'])
         mpki_dict = add_key(mpki_dict, tracefile, replacement_policy, stats_dict['miss'] / stats_dict['access'] * 1000)
 
-    for tracefile in ipc_dict.keys():
-        print(f"{tracefile}")
-        for replacement_policy in sorted(ipc_dict[tracefile].keys()):
-            ipc_wrt_lru = ipc_dict[tracefile][replacement_policy] / ipc_dict[tracefile]['lru']
-            print(f"{replacement_policy}\t{ipc_dict[tracefile][replacement_policy]}\t{ipc_wrt_lru}")
-        print()
+    # for tracefile in ipc_dict.keys():
+    #     print(f"{tracefile}")
+    #     for replacement_policy in sorted(ipc_dict[tracefile].keys()):
+    #         ipc_wrt_lru = ipc_dict[tracefile][replacement_policy] / ipc_dict[tracefile][baseline_policy]
+    #         if replacement_policy != baseline_policy:
+    #         # print(f"{replacement_policy}\t{ipc_dict[tracefile][replacement_policy]}\t{ipc_wrt_lru}")
+    #             print(f"{replacement_policy}\t{ipc_wrt_lru}")
+    #     print()
         
     for tracefile in mpki_dict.keys():
         print(f"{tracefile}")
         for replacement_policy in sorted(mpki_dict[tracefile].keys()):
-            mpki_wrt_lru = mpki_dict[tracefile][replacement_policy] / mpki_dict[tracefile]['lru']
-            print(f"{replacement_policy}\t{mpki_dict[tracefile][replacement_policy]}\t{mpki_wrt_lru}")
+            mpki_wrt_lru = mpki_dict[tracefile][replacement_policy] / mpki_dict[tracefile][baseline_policy]
+            if replacement_policy != baseline_policy:
+                # print(f"{replacement_policy}\t{mpki_dict[tracefile][replacement_policy]}\t{mpki_wrt_lru}")
+                print(f"{replacement_policy}\t{mpki_wrt_lru}")
         print()
 
  
