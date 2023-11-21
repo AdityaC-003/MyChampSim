@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 results_filepath = "./results_500M/" 
-baseline_policy = "mockingjay"
+baseline_policy = "lru"
 
 def get_llc_stats(filename):
     with open(filename, "r") as f:
@@ -21,6 +21,18 @@ def get_llc_stats(filename):
             if line.startswith("LLC TOTAL"):
                 return llc_stats_to_dict(line, ipc)
     return None
+
+
+def get_ratio(filename):
+    dbp, mock = 0, 0
+    with open(filename, "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            if line.startswith("DBP Decisions:"):
+                dbp = float(line.split(" ")[-1])
+            elif line.startswith("Mockingjay Decisions:"):
+                mock = float(line.split(" ")[-1])
+    return dbp / (mock+1)
 
 
 def llc_stats_to_dict(line, ipc):
@@ -74,30 +86,48 @@ def main():
 
     ipc_dict = {}
     mpki_dict = {}
-    
-    for filename in sorted(os.listdir(results_filepath)):
+    ratio_dict = {}
+
+    policies = ['lru', 'dbp_mm']
+    tracefiles = ['astar_313B', 'bzip2_281B', 'bwaves_1609B', 'cactusADM_1495B', 'h264ref_178B', 'lbm_126B', 'leslie3d_1186B', 'libquantum_964B', 'soplex_271B', 'xalancbmk_99B']
+
+    folder = sorted(os.listdir(results_filepath))
+
+    for filename in folder:
+
         tracefile = get_tracefile(filename)
         replacement_policy = get_replacement_policy(filename)
+    
+        if(tracefile not in tracefiles or replacement_policy not in policies):
+            continue
+
+        print(f"{tracefile}\t{replacement_policy}")
+
         stats_dict = get_llc_stats(f"{results_filepath}{filename}")
         ipc_dict = add_key(ipc_dict, tracefile, replacement_policy, stats_dict['ipc'])
         mpki_dict = add_key(mpki_dict, tracefile, replacement_policy, stats_dict['miss'] / stats_dict['access'] * 1000)
+        if replacement_policy == 'adc':
+            ratio_dict[tracefile] = get_ratio(f"{results_filepath}{filename}")
 
-    # for tracefile in ipc_dict.keys():
-    #     print(f"{tracefile}")
-    #     for replacement_policy in sorted(ipc_dict[tracefile].keys()):
-    #         ipc_wrt_lru = ipc_dict[tracefile][replacement_policy] / ipc_dict[tracefile][baseline_policy]
-    #         if replacement_policy != baseline_policy:
-    #         # print(f"{replacement_policy}\t{ipc_dict[tracefile][replacement_policy]}\t{ipc_wrt_lru}")
-    #             print(f"{replacement_policy}\t{ipc_wrt_lru}")
-    #     print()
-        
-    for tracefile in mpki_dict.keys():
+    for tracefile in ipc_dict.keys():
         print(f"{tracefile}")
-        for replacement_policy in sorted(mpki_dict[tracefile].keys()):
-            mpki_wrt_lru = mpki_dict[tracefile][replacement_policy] / mpki_dict[tracefile][baseline_policy]
+        # print(f"{ratio_dict[tracefile]}")
+        for replacement_policy in sorted(ipc_dict[tracefile].keys()):
+            ipc_wrt_lru = ipc_dict[tracefile][replacement_policy] / ipc_dict[tracefile][baseline_policy]
+            ipc_wrt_lru = (ipc_wrt_lru - 1) * 100
             if replacement_policy != baseline_policy:
-                # print(f"{replacement_policy}\t{mpki_dict[tracefile][replacement_policy]}\t{mpki_wrt_lru}")
-                print(f"{replacement_policy}\t{mpki_wrt_lru}")
+                print(f"{replacement_policy}\t{ipc_dict[tracefile][replacement_policy]}\t{ipc_wrt_lru}")
+                # print(f"{replacement_policy}\t{ipc_wrt_lru}")
+        print()
+        
+    # for tracefile in mpki_dict.keys():
+    #     print(f"{tracefile}")
+    #     print(f"{ratio_dict[tracefile]}")
+    #     for replacement_policy in sorted(mpki_dict[tracefile].keys()):
+    #         mpki_wrt_lru = mpki_dict[tracefile][replacement_policy] / mpki_dict[tracefile][baseline_policy]
+    #         if replacement_policy != baseline_policy:
+    #             # print(f"{replacement_policy}\t{mpki_dict[tracefile][replacement_policy]}\t{mpki_wrt_lru}")
+    #             print(f"{replacement_policy}\t{mpki_wrt_lru}")
         print()
 
  
@@ -108,10 +138,14 @@ def stats_summary():
     replacement_policy_trace_count = {}
     replacement_policy_weighted_trace_count = {}
 
-    for filename in sorted(os.listdir(results_filepath)):
+    folder = sorted(os.listdir(results_filepath))
+    folder = [f for f in folder if "dbp_mock" in f]
+
+    for filename in folder:
 
         tracefile = get_tracefile(filename)
         replacement_policy = get_replacement_policy(filename)
+        
         stats_dict = get_llc_stats(f"{results_filepath}{filename}")
 
         if replacement_policy not in avg_miss_rate:
